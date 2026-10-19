@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mochi’s First Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --ink:#2b2a4a; --panel:rgba(255,255,255,.88); --soft:#eef0ff; --accent:#ff8fa3; --sun:#ffd166; --mint:#7ee0c3; --line:#d5d8f5;
+  --sky-top:#a9c8ff; --sky-bot:#ffe3d1;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--ink:#f1efff;--panel:rgba(30,28,64,.88);--soft:#2c2a5c;--line:#4a4780}
+}
+:root[data-theme="dark"]{--ink:#f1efff;--panel:rgba(30,28,64,.88);--soft:#2c2a5c;--line:#4a4780}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:#a9c8ff;line-height:1.6;min-height:100vh}
+#sky{position:fixed;inset:0;z-index:-1;background:linear-gradient(var(--sky-top),var(--sky-bot))}
+h1,h2,h3{font-family:Fredoka,'Trebuchet MS',sans-serif;line-height:1.1;margin:0 0 .5em}
+main{max-width:760px;margin:0 auto;padding:0 18px 80px}
+.panel{background:var(--panel);border-radius:36px;padding:34px 28px;margin:28px 0;backdrop-filter:blur(6px)}
+h2{font-size:clamp(1.7rem,5vw,2.3rem)}
+p{max-width:60ch}
+
+/* hero */
+.hero{text-align:center;margin-top:24px;padding-top:20px}
+.hero h1{font-size:clamp(2.4rem,9vw,4rem);margin-bottom:.2em}
+.tag{font-weight:700;opacity:.8;margin:0 auto 6px}
+#cloudwrap{width:min(300px,78vw);margin:10px auto 0;cursor:pointer;-webkit-tap-highlight-color:transparent;background:none;border:0;display:block;padding:0}
+#cloudwrap:focus-visible,.btn:focus-visible,.block:focus-visible{outline:4px solid var(--accent);outline-offset:4px}
+#cloud{width:100%;height:auto;animation:bob 4s ease-in-out infinite;transform-origin:50% 90%}
+#cloud.squish{animation:squish .5s}
+@keyframes bob{50%{transform:translateY(-10px)}}
+@keyframes squish{30%{transform:scale(1.14,.82)}60%{transform:scale(.94,1.1)}}
+.cheek{opacity:.75}
+.hint{font-size:.95rem;margin-top:8px}
+.counter{display:inline-block;background:var(--soft);border-radius:99px;padding:4px 16px;font-weight:700;margin-top:6px}
+
+.btn{font:700 1.05rem Fredoka,sans-serif;background:var(--accent);color:#2b2a4a;border:0;border-radius:99px;padding:13px 26px;cursor:pointer;transition:transform .15s}
+.btn:active{transform:scale(.94)}
+.btn.alt{background:var(--sun)}
+
+/* milestones */
+.steps{list-style:none;margin:0;padding:0 0 0 26px;border-left:4px dashed var(--line)}
+.steps li{position:relative;margin-bottom:22px;padding-left:14px}
+.steps li::before{content:"";position:absolute;left:-39px;top:3px;width:20px;height:20px;border-radius:50%;background:var(--sun);border:4px solid var(--panel)}
+.steps li:nth-child(2)::before{background:var(--mint)}
+.steps li:nth-child(3)::before{background:var(--accent)}
+.steps b{font-family:Fredoka,sans-serif;font-size:1.2rem}
+.bar{height:12px;background:var(--soft);border-radius:9px;overflow:hidden;max-width:260px;margin-top:6px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:9px;transition:width 1.2s cubic-bezier(.3,1.4,.5,1)}
+
+/* works */
+.blocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.block{font:inherit;color:var(--ink);text-align:left;border:0;border-radius:22px;padding:20px;cursor:pointer;background:var(--soft);transition:transform .2s}
+.block:nth-child(1){border-radius:30px 12px 30px 12px}
+.block:nth-child(2){border-radius:12px 30px 12px 30px}
+.block:hover{transform:rotate(-1.5deg)}
+.block h3{font-size:1.25rem;margin-bottom:.3em}
+.block .em{font-size:2.2rem;display:block;margin-bottom:6px}
+.block .more{display:none;margin-top:8px;font-size:.95rem}
+.block[aria-expanded="true"] .more{display:block}
+.block[aria-expanded="true"]{background:var(--sun);color:#2b2a4a}
+
+/* words */
+blockquote{margin:0 0 16px;padding:14px 18px;background:var(--soft);border-radius:22px 22px 22px 4px}
+blockquote:nth-of-type(2){border-radius:22px 22px 4px 22px;margin-left:auto;max-width:92%}
+cite{display:block;font-weight:700;font-style:normal;font-size:.9rem;margin-top:4px;opacity:.75}
+
+footer.panel{text-align:center}
+.drop{position:fixed;top:-30px;width:8px;height:18px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#6fb1ff;pointer-events:none;z-index:50;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh)}}
+.bow{position:fixed;left:50%;bottom:20vh;width:260px;height:130px;margin-left:-130px;border-radius:260px 260px 0 0;border:18px solid transparent;border-bottom:0;background:conic-gradient(from 0deg at 50% 100%,#ff8fa3,#ffd166,#7ee0c3,#6fb1ff,#ff8fa3) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box exclude,linear-gradient(#000 0 0);pointer-events:none;z-index:49;animation:bowin 3s forwards}
+@keyframes bowin{0%{opacity:0;transform:scale(.4)}20%,70%{opacity:1;transform:scale(1)}100%{opacity:0}}
+#mute{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:60;font:700 .95rem Fredoka,sans-serif;background:var(--panel);color:var(--ink);border:0;border-radius:99px;padding:9px 16px;cursor:pointer}
+#mute:focus-visible,#star:focus-visible{outline:4px solid var(--accent)}
+.hero{position:relative}
+#star{position:absolute;top:16px;left:20px;background:none;border:0;font-size:1.2rem;opacity:.4;cursor:pointer;padding:8px;color:var(--ink)}
+#star:hover{opacity:1}
+.sheet{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0}
+.sheet dt{font-family:Fredoka,sans-serif;font-weight:700}
+.sheet dd{margin:0}
+@media (prefers-reduced-motion:reduce){#cloud{animation:none}html{scroll-behavior:auto}.drop,.bow{animation-duration:.01s}}
+</style>
+</head>
+<body>
+<div id="sky" aria-hidden="true"></div>
+<button id="mute" aria-pressed="false">🔊 Sound on</button>
+<main>
+
+<section class="panel hero">
+  <p class="tag">small ideas. brighter beginnings.</p>
+  <h1>Hi, I’m Mochi.</h1>
+  <p style="margin:0 auto">A baby cloud, three weeks old, learning how to rain. This is my very first portfolio.</p>
+  <button id="cloudwrap" aria-label="Poke Mochi the cloud">
+    <svg id="cloud" viewBox="0 0 300 220" role="img" aria-label="A smiling baby cloud">
+      <g fill="#fff" stroke="#d9e4ff" stroke-width="4">
+        <circle cx="90" cy="120" r="55"/><circle cx="150" cy="85" r="62"/><circle cx="215" cy="118" r="55"/>
+        <rect x="60" y="120" width="190" height="62" rx="31"/>
+      </g>
+      <g fill="#fff"><circle cx="90" cy="120" r="52"/><circle cx="150" cy="85" r="59"/><circle cx="215" cy="118" r="52"/><rect x="63" y="124" width="184" height="56" rx="28"/></g>
+      <circle class="cheek" cx="108" cy="148" r="12" fill="#ffb3c1"/><circle class="cheek" cx="192" cy="148" r="12" fill="#ffb3c1"/>
+      <g id="eyes" fill="#2b2a4a"><circle id="eL" cx="125" cy="128" r="9"/><circle id="eR" cx="175" cy="128" r="9"/>
+        <circle cx="128" cy="124" r="3" fill="#fff" class="sh"/><circle cx="178" cy="124" r="3" fill="#fff" class="sh"/></g>
+      <path id="mouth" d="M139 146 Q150 158 161 146" fill="none" stroke="#2b2a4a" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <p class="hint">Tap Mochi. Mochi giggles.</p>
+  <span class="counter"><span id="count">0</span> giggles</span>
+  <button id="star" aria-label="A tiny star">✦</button>
+  <p id="secret" role="status" style="margin:10px auto 0;font-weight:700"></p>
+</section>
+
+<section class="panel" id="sheet">
+  <h2>Character sheet</h2>
+  <dl class="sheet">
+    <dt>Name</dt><dd>Mochi</dd>
+    <dt>What I am</dt><dd>A baby cloud: soft, round, very ticklish, and curious about everything.</dd>
+    <dt>What I do</dt><dd>I make tiny weather: drizzles, puddles, lullabies and rainbows.</dd>
+    <dt>My story</dt><dd>I formed from a morning mist on a sunny hill. Now I’m learning to rain, one drop at a time.</dd>
+    <dt>Tagline</dt><dd>small ideas. brighter beginnings.</dd>
+  </dl>
+</section>
+
+<section class="panel" id="milestones">
+  <h2>What I’ve learned so far</h2>
+  <ol class="steps">
+    <li><b>Week 1: First float</b><br>Learned to stay up in the sky without falling. Skill unlocked: layout and balance.
+      <div class="bar"><i data-w="90%"></i></div></li>
+    <li><b>Week 2: First drizzle</b><br>A few tiny drops, perfectly timed. Skill unlocked: animation and sound.
+      <div class="bar"><i data-w="70%"></i></div></li>
+    <li><b>Week 3: First rainbow</b><br>Rain plus sunlight makes colour. Skill unlocked: design and storytelling.
+      <div class="bar"><i data-w="55%"></i></div></li>
+  </ol>
+</section>
+
+<section class="panel" id="works">
+  <h2>My little works</h2>
+  <p>Tap a block to peek inside.</p>
+  <div class="blocks">
+    <button class="block" aria-expanded="false"><span class="em">🗺️</span><h3>Puddle Maps</h3>A map of every puddle in town.<span class="more">Built for jumping. Shows depth, splash level and which ones have ducks.</span></button>
+    <button class="block" aria-expanded="false"><span class="em">🌙</span><h3>Lullaby Weather</h3>A forecast that sings you to sleep.<span class="more">Soft drizzle sounds, a nightlight mode, and a 3-minute timer.</span></button>
+    <button class="block" aria-expanded="false"><span class="em">⚡</span><h3>Tiny Thunder</h3>Thunder that only whispers.<span class="more">Cuddly rumbles for kids who are scared of loud storms.</span></button>
+  </div>
+</section>
+
+<section class="panel" id="words">
+  <h2>My first words (from friends)</h2>
+  <blockquote>Mochi makes me feel warm and cool at the same time. Ten out of ten.<cite>Sun</cite></blockquote>
+  <blockquote>Very bouncy. Very soft. I carried Mochi across the whole valley.<cite>Wind</cite></blockquote>
+  <blockquote>Finally, someone who rains only when I ask.<cite>A tall umbrella</cite></blockquote>
+</section>
+
+<footer class="panel">
+  <h2>Come say hi</h2>
+  <p style="margin:0 auto 18px">Mochi is open to playdates, projects and snacks.</p>
+  <button class="btn" id="rain">Make it rain</button>
+  <button class="btn alt" id="hello" style="margin-top:8px">Send a hello</button>
+  <p id="hellomsg" role="status" style="margin:14px auto 0;font-weight:700"></p>
+  <p style="font-size:.85rem;margin:22px auto 0;opacity:.85">Credits: Mochi is drawn in SVG and CSS. Sounds are made with the Web Audio API. Fonts: Fredoka and Nunito (Google Fonts). Built with Claude AI assistance.</p>
+</footer>
+</main>
+
+<script>
+(function(){
+  var cloud=document.getElementById('cloud'),wrap=document.getElementById('cloudwrap'),
+      count=document.getElementById('count'),mouth=document.getElementById('mouth'),
+      eL=document.getElementById('eL'),eR=document.getElementById('eR'),n=0,ctx=null;
+
+  /* sound */
+  var muted=false;
+  function blip(f,d){
+    if(muted)return;
+    try{
+      ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.setValueAtTime(f,ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(f*1.6,ctx.currentTime+d);
+      g.gain.setValueAtTime(.18,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d);
+      o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+d);
+    }catch(e){}
+  }
+  function giggle(){
+    blip(520,.12);setTimeout(function(){blip(660,.12)},120);setTimeout(function(){blip(780,.16)},240);
+  }
+
+  /* poke */
+  wrap.addEventListener('click',function(){
+    n++;count.textContent=n;giggle();
+    cloud.classList.remove('squish');void cloud.getBoundingClientRect();cloud.classList.add('squish');
+    mouth.setAttribute('d','M136 144 Q150 168 164 144 Z');
+    setTimeout(function(){mouth.setAttribute('d','M139 146 Q150 158 161 146')},600);
+    if(n%5===0)rain(24);
+  });
+
+  /* eyes follow pointer */
+  function look(x,y){
+    var r=cloud.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,
+        dx=x-cx,dy=y-cy,d=Math.hypot(dx,dy)||1,k=Math.min(5,d/40);
+    var tx=dx/d*k,ty=dy/d*k;
+    [eL,eR].forEach(function(e){e.style.transform='translate('+tx+'px,'+ty+'px)'});
+  }
+  window.addEventListener('pointermove',function(e){look(e.clientX,e.clientY)});
+
+  /* rain */
+  function rain(c){
+    for(var i=0;i<c;i++){
+      var d=document.createElement('div');d.className='drop';
+      d.style.left=Math.random()*100+'vw';
+      d.style.animationDuration=(1.1+Math.random()*1.2)+'s';
+      d.style.animationDelay=(Math.random()*.9)+'s';
+      document.body.appendChild(d);
+      setTimeout(function(el){el.remove()},3500,d);
+    }
+  }
+  document.getElementById('rain').addEventListener('click',function(){
+    rain(70);blip(300,.4);
+    setTimeout(function(){
+      var b=document.createElement('div');b.className='bow';document.body.appendChild(b);
+      blip(880,.3);setTimeout(function(){b.remove()},3000);
+    },1800);
+  });
+
+  /* hello button: copies the email, no navigation */
+  document.getElementById('hello').addEventListener('click',function(){
+    var mail='tariniyadavtarini23@gmail.com',msg=document.getElementById('hellomsg');
+    try{navigator.clipboard.writeText(mail)}catch(e){}
+    msg.textContent='Mochi says hi! ☁️ Write to '+mail;
+    giggle();rain(20);
+  });
+
+  /* mute toggle */
+  var mb=document.getElementById('mute');
+  mb.addEventListener('click',function(){
+    muted=!muted;mb.setAttribute('aria-pressed',muted);
+    mb.textContent=muted?'🔇 Sound off':'🔊 Sound on';
+  });
+
+  /* hidden easter egg: the tiny star */
+  document.getElementById('star').addEventListener('click',function(){
+    [523,659,784,1047,784,659].forEach(function(f,i){setTimeout(function(){blip(f,.3)},i*260)});
+    document.getElementById('secret').textContent='You found Mochi’s secret lullaby! Shh, Mochi is humming. 🌙';
+    var b=document.createElement('div');b.className='bow';document.body.appendChild(b);
+    setTimeout(function(){b.remove()},3000);
+  });
+
+  /* work blocks */
+  document.querySelectorAll('.block').forEach(function(b){
+    b.addEventListener('click',function(){
+      b.setAttribute('aria-expanded',b.getAttribute('aria-expanded')==='true'?'false':'true');
+      blip(440,.1);
+    });
+  });
+
+  /* progress bars fill on view */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.style.width=e.target.dataset.w;io.unobserve(e.target)}});
+  },{threshold:.5});
+  document.querySelectorAll('.bar i').forEach(function(i){io.observe(i)});
+
+  /* the sky grows up as you scroll: morning -> noon -> dusk */
+  var stops=[[[169,200,255],[255,227,209]],[[127,176,245],[217,236,255]],[[43,42,99],[143,111,196]]];
+  function mix(a,b,t){return a.map(function(v,i){return Math.round(v+(b[i]-v)*t)})}
+  function sky(){
+    var h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0,
+        s=p*2,i=Math.min(1,Math.floor(s)),t=s-i,
+        top=mix(stops[i][0],stops[i+1][0],t),bot=mix(stops[i][1],stops[i+1][1],t),
+        r=document.documentElement.style;
+    r.setProperty('--sky-top','rgb('+top+')');r.setProperty('--sky-bot','rgb('+bot+')');
+    document.body.style.background='rgb('+top+')';
+  }
+  window.addEventListener('scroll',sky,{passive:true});sky();
+})();
+</script>
+</body>
+</html>
